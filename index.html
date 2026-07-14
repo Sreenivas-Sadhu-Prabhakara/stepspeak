@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'">
+  <title>stepspeak — hear any instructions one step at a time</title>
+  <meta name="description" content="Paste any list of instructions and stepspeak reads it aloud, one big-print step at a time, hands-free. A private, offline accessibility tool for recipes, repairs, and routines.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://sreenivas-sadhu-prabhakara.github.io/stepspeak/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Sreenivas Sadhu Prabhakara">
+  <meta name="keywords" content="read instructions aloud, text to speech steps, hands-free instructions, step by step reader, accessibility reading tool, large print instructions, speak steps out loud, spoken walkthrough, low vision reader, offline text to speech">
+  <meta name="theme-color" content="#1F2450" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#FBFBF7" media="(prefers-color-scheme: light)">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="stepspeak">
+  <meta property="og:title" content="stepspeak — hear any instructions one step at a time">
+  <meta property="og:description" content="Paste any list of instructions and stepspeak reads it aloud, one big-print step at a time, hands-free. A private, offline accessibility tool for recipes, repairs, and routines.">
+  <meta property="og:url" content="https://sreenivas-sadhu-prabhakara.github.io/stepspeak/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://sreenivas-sadhu-prabhakara.github.io/stepspeak/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="stepspeak — hear any instructions, one step at a time">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="stepspeak — hear any instructions one step at a time">
+  <meta name="twitter:description" content="Paste any list of instructions and stepspeak reads it aloud, one big-print step at a time, hands-free. A private, offline accessibility tool for recipes, repairs, and routines.">
+  <meta name="twitter:image" content="https://sreenivas-sadhu-prabhakara.github.io/stepspeak/og-image.png">
+  <meta name="twitter:image:alt" content="stepspeak — hear any instructions, one step at a time">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Structured data (data block; not affected by script-src) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "stepspeak",
+    "description": "A private, offline accessibility tool that turns any list of instructions into a hands-free, one-step-at-a-time spoken and large-print walkthrough using your device's built-in voices.",
+    "url": "https://sreenivas-sadhu-prabhakara.github.io/stepspeak/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any (modern web browser)",
+    "browserRequirements": "Requires a modern web browser with JavaScript enabled. Spoken output requires the browser's built-in speech-synthesis voices.",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "license": "https://opensource.org/licenses/MIT",
+    "author": { "@type": "Person", "name": "Sreenivas Sadhu Prabhakara" },
+    "softwareVersion": "0.1.0",
+    "featureList": [
+      "Paste any instructions and split them into steps automatically",
+      "One large-print step at a time with a Step X of Y counter",
+      "Reads each step aloud with the browser's built-in voices",
+      "Voice picker, speaking-rate and pitch controls",
+      "Full keyboard control and a screen-reader live region",
+      "Adjustable text size, light and dark themes",
+      "Runs 100% offline in your browser with no accounts"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does stepspeak send my instructions anywhere?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. stepspeak runs entirely in your browser. The spoken audio is produced by your device's own built-in speech-synthesis voices, so nothing you paste is ever uploaded or transmitted. Your last list and settings are saved only in this browser's local storage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do I have no voices, or only one voice, in the voice picker?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The available voices come from your operating system and browser, not from stepspeak, so the list varies by device. If it looks empty at first, wait a moment or reopen the picker while voices load. If your device has no speech voices installed, the large-print stepper still works silently."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does stepspeak decide where one step ends and the next begins?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It splits your text on line breaks and strips leading list markers such as 1. or 1) or a dash. Blank lines are ignored. Put each step on its own line and you will get one card per step."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I control stepspeak with just the keyboard?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. In the walkthrough, the Left and Right arrow keys move between steps, Space advances to the next step, and Enter repeats the current step aloud. Every control is a real, focusable button with a visible focus ring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is stepspeak safe to use for medical or safety-critical instructions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "stepspeak is a general-purpose reading aid, not a medical, legal, or safety device. It reads back exactly what you paste and can mis-split unusual text. Always verify instructions against the original source and do not rely on it for safety-critical or medical procedures."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does stepspeak work offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. There are no network calls, fonts, or scripts loaded from anywhere else, so once the page is open it keeps working with no connection. The built-in voices it uses are already installed on your device."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#make">Skip to the input</a>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <div class="hero__inner">
+      <div class="brand">
+        <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M8 10h32a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H21l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z"/>
+          <text x="24" y="27" class="brand__num">3</text>
+        </svg>
+        <span class="brand__word">stepspeak</span>
+      </div>
+
+      <p class="eyebrow">Spoken &middot; one step at a time &middot; hands-free</p>
+      <h1 class="hero__title">Hear any instructions,<br><span class="hero__accent">one step at a time.</span></h1>
+      <p class="hero__lede">
+        Paste a recipe, a repair, a routine&mdash;anything with steps. stepspeak turns it into a
+        big-print card you can read from across the room and, if you like, <em>hear read aloud</em>.
+        No accounts, no network. The voice comes from your own device.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#make">Paste your steps</a>
+        <span class="hero__note">Nothing you type ever leaves this device.</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ INPUT / SETUP ============ -->
+    <section class="make" id="make" aria-labelledby="makeHeading">
+      <div class="make__inner">
+        <h2 class="section-heading" id="makeHeading">Your steps</h2>
+
+        <form class="composer" id="composer" novalidate>
+          <div class="composer__field">
+            <label class="composer__label" for="stepsInput">Paste or type your instructions</label>
+            <p class="composer__hint" id="stepsHint">
+              One step per line. Numbers like <span class="kbd">1.</span> or <span class="kbd">1)</span>
+              and leading dashes are removed automatically; blank lines are skipped.
+            </p>
+            <textarea id="stepsInput" name="steps" class="composer__area" rows="9"
+              placeholder="1. Fill the kettle and switch it on.&#10;2. Put one spoon of coffee in the mug.&#10;3. Pour in the hot water and stir.&#10;4. Add milk or sugar to taste."
+              aria-describedby="stepsHint stepsCount" spellcheck="false"></textarea>
+            <p class="composer__count" id="stepsCount" aria-live="polite">No steps yet.</p>
+          </div>
+
+          <div class="examples">
+            <span class="examples__label" id="examplesLabel">Or try an example:</span>
+            <div class="examples__row" role="group" aria-labelledby="examplesLabel" id="examplesRow">
+              <button type="button" class="pill" data-example="coffee">Cup of coffee</button>
+              <button type="button" class="pill" data-example="bleed">Stop a bleeding cut</button>
+              <button type="button" class="pill" data-example="shelf">Assemble a flat-pack shelf</button>
+            </div>
+          </div>
+
+          <div class="composer__actions">
+            <button type="submit" class="btn btn--primary btn--go" id="startBtn">Start walkthrough</button>
+            <button type="button" class="btn btn--ghost" id="clearBtn">Clear</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ STEPPER ============ -->
+    <section class="stepper" id="stepper" aria-labelledby="stepperHeading" hidden>
+      <div class="stepper__inner">
+        <div class="stepper__bar">
+          <h2 class="section-heading section-heading--inline" id="stepperHeading">Walkthrough</h2>
+          <button type="button" class="btn btn--ghost btn--small" id="editBtn">Edit steps</button>
+        </div>
+
+        <div class="progress" aria-hidden="true">
+          <div class="progress__track"><div class="progress__fill" id="progressFill"></div></div>
+        </div>
+        <p class="progress__read" id="progressRead">Step 1 of 1</p>
+
+        <!-- The speech bubble: the signature element -->
+        <div class="bubble">
+          <p class="bubble__count" id="bubbleCount">Step 1 of 1</p>
+          <span class="bubble__chip" id="stepChip" aria-hidden="true">1</span>
+          <p class="bubble__text" id="stepText">&nbsp;</p>
+        </div>
+
+        <!-- Live region for screen readers: announces the current step -->
+        <p class="visually-hidden" id="liveStep" aria-live="polite" role="status"></p>
+
+        <div class="nav">
+          <button type="button" class="btn btn--nav" id="prevBtn" aria-label="Previous step">
+            <span class="nav__arrow" aria-hidden="true">&larr;</span>
+            <span>Previous</span>
+          </button>
+          <button type="button" class="btn btn--repeat" id="repeatBtn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="nav__icon"><path d="M12 4a8 8 0 1 1-7 4.1"/><path d="M12 1 8 4l4 3"/></svg>
+            <span>Repeat</span>
+          </button>
+          <button type="button" class="btn btn--nav btn--nav-next" id="nextBtn" aria-label="Next step">
+            <span>Next</span>
+            <span class="nav__arrow" aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+
+        <p class="nav__keys">
+          <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> move &middot;
+          <span class="kbd">Space</span> next &middot;
+          <span class="kbd">Enter</span> repeat aloud
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SPEECH + COMFORT SETTINGS ============ -->
+    <section class="settings" id="settings" aria-labelledby="settingsHeading">
+      <div class="settings__inner">
+        <h2 class="section-heading" id="settingsHeading">Voice &amp; comfort</h2>
+
+        <div class="settings__grid">
+          <fieldset class="card">
+            <legend class="card__legend">Speaking</legend>
+
+            <label class="switch">
+              <input type="checkbox" id="autoSpeak" checked>
+              <span class="switch__box" aria-hidden="true"></span>
+              <span class="switch__text">Speak each step aloud automatically</span>
+            </label>
+
+            <div class="control">
+              <label class="control__label" for="voiceSelect">Voice</label>
+              <select id="voiceSelect" class="control__select">
+                <option value="">Loading voices…</option>
+              </select>
+              <p class="control__note" id="voiceNote">Voices come from your device. The list may be short or empty.</p>
+            </div>
+
+            <div class="control">
+              <label class="control__label" for="rate">Speaking rate <span class="control__val" id="rateVal">1.0×</span></label>
+              <input type="range" id="rate" class="control__range" min="0.5" max="1.6" step="0.1" value="1">
+            </div>
+
+            <div class="control">
+              <label class="control__label" for="pitch">Pitch <span class="control__val" id="pitchVal">1.0</span></label>
+              <input type="range" id="pitch" class="control__range" min="0.6" max="1.6" step="0.1" value="1">
+            </div>
+
+            <button type="button" class="btn btn--ghost btn--small" id="testVoiceBtn">Test voice</button>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend class="card__legend">Reading comfort</legend>
+
+            <div class="control">
+              <span class="control__label" id="sizeLabel">Text size</span>
+              <div class="segmented" role="radiogroup" aria-labelledby="sizeLabel" id="sizeGroup">
+                <label class="seg"><input type="radio" name="size" value="normal"><span>Normal</span></label>
+                <label class="seg"><input type="radio" name="size" value="large" checked><span>Large</span></label>
+                <label class="seg"><input type="radio" name="size" value="huge"><span>Huge</span></label>
+              </div>
+            </div>
+
+            <div class="control">
+              <span class="control__label" id="themeLabel">Theme</span>
+              <div class="segmented" role="radiogroup" aria-labelledby="themeLabel" id="themeGroup">
+                <label class="seg"><input type="radio" name="theme" value="system" checked><span>System</span></label>
+                <label class="seg"><input type="radio" name="theme" value="light"><span>Light</span></label>
+                <label class="seg"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+              </div>
+            </div>
+
+            <p class="control__note">
+              stepspeak respects your <em>reduced-motion</em> and light/dark system settings.
+              Choose <span class="kbd">System</span> above to follow your device.
+            </p>
+          </fieldset>
+        </div>
+
+        <p class="settings__save" id="saveNote">Your last list and settings stay in this browser.</p>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="how" aria-labelledby="howHeading">
+      <div class="how__inner">
+        <h2 class="section-heading" id="howHeading">How it works</h2>
+        <ol class="how__list">
+          <li class="how__item">
+            <span class="how__num" aria-hidden="true">1</span>
+            <div>
+              <h3 class="how__title">Paste your steps</h3>
+              <p class="how__body">Drop in a recipe, a manual, or any list. Each line becomes one step. Common list markers are cleaned up for you.</p>
+            </div>
+          </li>
+          <li class="how__item">
+            <span class="how__num" aria-hidden="true">2</span>
+            <div>
+              <h3 class="how__title">Walk through, hands-free</h3>
+              <p class="how__body">See one large step at a time. Move with the buttons or the arrow keys, and let the built-in voice read each step as you go.</p>
+            </div>
+          </li>
+          <li class="how__item">
+            <span class="how__num" aria-hidden="true">3</span>
+            <div>
+              <h3 class="how__title">Tune it to you</h3>
+              <p class="how__body">Pick a voice, slow it down, make the text huge, switch to dark. It all stays on your device for next time.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="foot">
+    <div class="foot__inner">
+      <p class="foot__disclaimer">
+        <strong>A reading aid, not a safety device.</strong> stepspeak reads back exactly what you paste and can
+        mis-split unusual text. It is a general-purpose reading and accessibility aid&mdash;<strong>not</strong> for
+        safety-critical or medical procedures. Always verify instructions against the original source and use at your own risk.
+      </p>
+      <p class="foot__meta">
+        <span>100% offline</span><span class="foot__dot">&middot;</span>
+        <span>No network, no accounts</span><span class="foot__dot">&middot;</span>
+        <span>Voices are your device's own</span><span class="foot__dot">&middot;</span>
+        <span>MIT&nbsp;License</span><span class="foot__dot">&middot;</span>
+        <span>&copy; 2026 Sreenivas&nbsp;Sadhu&nbsp;Prabhakara</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
